@@ -9,6 +9,8 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
+
+
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.utils.validation import check_is_fitted
 
@@ -456,7 +458,7 @@ class Splitter(BaseTransformer):
 
         if self.keep_coords_as is not None:
             Xt[tmp_dim] = Xt[self.keep_coords_as]
-            Xt = Xt.drop(self.keep_coords_as)
+            Xt = Xt.drop_vars(self.keep_coords_as)
 
         # transpose to original dimensions
         Xt = Xt.rename({tmp_dim: self.dim})
@@ -772,7 +774,7 @@ class Segmenter(BaseTransformer):
             )
         }
 
-        X = X.drop(self.keep_coords_as)
+        X = X.drop_vars(self.keep_coords_as)
 
         for c in X.coords:
             if c not in (self.dim, self.new_dim) and self.dim in X[c].dims:

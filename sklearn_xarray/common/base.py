@@ -120,6 +120,37 @@ class _CommonEstimatorWrapper(BaseEstimator):
 
         return dims_old
 
+
+    # def _update_coords(self, X: xr.DataArray) -> dict:
+    #     """ Update the coordinates of a reshaped DataArray. """
+
+    #     coords_new = {}
+
+    #     # dict syntax
+    #     if hasattr(self.reshapes, "items"):
+    #         all_old_dims = [dim for dims in self.reshapes.values() for dim in dims]
+
+    #         for c in X.coords:
+    #             old_dims_in_c = [dim for dim in X[c].dims if dim in all_old_dims]
+    #             if old_dims_in_c and c not in all_old_dims:
+    #                 c_t = X[c].isel({dim: 0 for dim in old_dims_in_c})
+    #                 new_dims = [dim for dim in X[c].dims if dim not in all_old_dims]
+    #                 coords_new[c] = (new_dims, c_t.drop_vars(old_dims_in_c))
+    #             elif c not in all_old_dims:
+    #                 coords_new[c] = X[c]
+
+    #     # string syntax
+    #     else:
+    #         for c in X.coords:
+    #             if self.reshapes in X[c].dims and c != self.reshapes:
+    #                 c_t = X[c].isel({self.reshapes: 0})
+    #                 new_dims = [dim for dim in X[c].dims if dim != self.reshapes]
+    #                 coords_new[c] = (new_dims, c_t.drop_vars(self.reshapes))
+    #             elif c != self.reshapes:
+    #                 coords_new[c] = X[c]
+
+    #     return coords_new
+        
     def _update_coords(self, X):
         """ Update the coordinates of a reshaped DataArray. """
 
@@ -138,7 +169,7 @@ class _CommonEstimatorWrapper(BaseEstimator):
                 if any(old_dims_in_c) and c not in all_old_dims:
                     c_t = X[c].isel(**{d: 0 for d in old_dims_in_c})
                     new_dims = [d for d in X[c].dims if d not in all_old_dims]
-                    coords_new[c] = (new_dims, c_t.drop(old_dims_in_c))
+                    coords_new[c] = (new_dims, c_t.drop_vars(old_dims_in_c))
                 elif c not in all_old_dims:
                     coords_new[c] = X[c]
 
@@ -149,7 +180,7 @@ class _CommonEstimatorWrapper(BaseEstimator):
                 if self.reshapes in X[c].dims and c != self.reshapes:
                     c_t = X[c].isel(**{self.reshapes: 0})
                     new_dims = [d for d in X[c].dims if d != self.reshapes]
-                    coords_new[c] = (new_dims, c_t.drop(self.reshapes))
+                    coords_new[c] = (new_dims, c_t.drop_vars(self.reshapes))
                 elif c != self.reshapes:
                     coords_new[c] = X[c]
 

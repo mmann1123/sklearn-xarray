@@ -217,7 +217,7 @@ class PublicInterfaceTests(TestCase):
         # test DataArray
         X_da = self.X.var_2d
 
-        y = X_da[:, :2].drop("feat_1")
+        y = X_da[:, :2].drop_vars("feat_1")
         y["dummy"] = y.dummy[:, 0]
 
         estimator.fit(X_da)
@@ -228,7 +228,7 @@ class PublicInterfaceTests(TestCase):
         # test Dataset
         X_ds = self.X.var_2d.to_dataset()
 
-        y = X_ds.var_2d[:, :2].drop("feat_1")
+        y = X_ds.var_2d[:, :2].drop_vars("feat_1")
         y["dummy"] = y.dummy[:, 0]
 
         estimator.fit(X_ds)
@@ -245,7 +245,7 @@ class PublicInterfaceTests(TestCase):
         # test DataArray
         X_da = self.X.var_3d
 
-        y = X_da[:, :2].drop("feat_1")
+        y = X_da[:, :2].drop_vars("feat_1")
         y["dummy"] = y.dummy[:, 0]
 
         estimator.fit(X_da)
@@ -256,7 +256,7 @@ class PublicInterfaceTests(TestCase):
         # test Dataset
         X_ds = self.X.var_2d.to_dataset()
 
-        y = X_ds.var_2d[:, :2].drop("feat_1")
+        y = X_ds.var_2d[:, :2].drop_vars("feat_1")
         y["dummy"] = y.dummy[:, 0]
 
         estimator.fit(X_ds)
@@ -273,7 +273,7 @@ class PublicInterfaceTests(TestCase):
         # test DataArray
         X_da = self.X.var_2d
 
-        y = X_da[:, 0].drop("feat_1")
+        y = X_da[:, 0].drop_vars("feat_1")
         estimator.fit(X_da)
         yp = estimator.predict(X_da)
 
@@ -282,7 +282,7 @@ class PublicInterfaceTests(TestCase):
         # test Dataset
         X_ds = self.X
 
-        y = X_ds.var_2d[:, 0].drop("feat_1")
+        y = X_ds.var_2d[:, 0].drop_vars("feat_1")
 
         estimator.fit(X_ds)
         yp = estimator.predict(X_ds).var_2d
@@ -301,7 +301,7 @@ class PublicInterfaceTests(TestCase):
 
         Xt = (
             X_da[:, :5, 0]
-            .drop(["feat_1", "feat_2"])
+            .drop_vars(["feat_1", "feat_2"])
             .rename({"feat_1": "feature"})
         )
         Xt["dummy"] = Xt.dummy[:, 0]
@@ -315,7 +315,7 @@ class PublicInterfaceTests(TestCase):
         # test Dataset
         X_ds = self.X.var_3d.to_dataset()
 
-        y = X_ds.var_3d[:, :5, 0].drop(["feat_1", "feat_2"])
+        y = X_ds.var_3d[:, :5, 0].drop_vars(["feat_1", "feat_2"])
         y = y.rename({"feat_1": "feature"})
         y["dummy"] = y.dummy[:, 0]
 

@@ -15,8 +15,8 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.utils.validation import check_is_fitted
 
 from .utils import get_group_indices, is_dataarray, is_dataset
-from .externals import numpy_groupies as npg
-
+# from .externals import numpy_groupies as npg
+import numpy_groupies as npg
 
 def preprocess(X, function, groupby=None, group_dim="sample", **fit_params):
     """ Wraps preprocessing functions from sklearn for use with xarray types.

@@ -271,7 +271,7 @@ class EstimatorWrapper(_CommonEstimatorWrapper):
 
             # TODO: check if this needs to be removed for compat wrappers
             for v in vars(self.estimator_):
-                if v.endswith("_") and not v.startswith("_"):
+                if v.endswith("_") and not v.startswith("_") and v not in ("estimators_", "estimator_"):
                     setattr(self, v, getattr(self.estimator_, v))
 
         elif is_dataset(X):
@@ -302,7 +302,7 @@ class EstimatorWrapper(_CommonEstimatorWrapper):
 
             # TODO: check if this needs to be removed for compat wrappers
             for v in vars(self.estimator_):
-                if v.endswith("_") and not v.startswith("_"):
+                if v.endswith("_") and not v.startswith("_") and v not in ("estimators_", "estimator_"):
                     setattr(self, v, getattr(self.estimator_, v))
 
         return self
@@ -440,3 +440,4 @@ class ClassifierWrapper(
     """
 
     _estimator_type = "classifier"
+ 

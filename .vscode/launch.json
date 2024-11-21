@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+    
+        {
+            "name": "Python: Module",
+            "type": "python",
+            "request": "launch",
+            "module": "sklearn_xarray",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "python":"/home/mmann1123/miniconda3/envs/test2/bin/python"
+        }
+    ]
+}
